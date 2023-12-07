@@ -1,4 +1,6 @@
 /* eslint-disable react/prop-types */
+import { AiFillExclamationCircle } from "react-icons/ai";
+
 const Input = ({
   type,
   nameInput,
@@ -7,7 +9,6 @@ const Input = ({
   register,
   error,
 }) => {
-  // Agrega una clase específica si hay un error
   const inputClass = error ? "border-red-500" : "";
 
   return (
@@ -24,21 +25,14 @@ const Input = ({
           required: { value: true, message: "This field is required" },
         })}
       />
-      {error ? (
-        <div className="error-container ">
-          {/* <i className={error ? "error-icon" : "error-icon-disabled"}>
-            <AiFillExclamationCircle />
-          </i> */}
-          <p className="text-red-500 ">{error}</p>
-        </div>
-      ) : (
-        <div className="error-container-disabled">
-          {/* <i className={error ? "error-icon" : "error-icon-disabled"}>
-            <AiFillExclamationCircle />
-          </i> */}
-          <p className="text-transparent">Esto es un error transparente</p>
-        </div>
-      )}
+      <div className="flex gap-2 mt-2 items-center">
+        <i className={error ? "text-red-500" : "text-transparent"}>
+          <AiFillExclamationCircle />
+        </i>
+        <p className={error ? "text-red-500" : "text-transparent"}>
+          {error ? error : "this is a error"}
+        </p>
+      </div>
     </div>
   );
 };

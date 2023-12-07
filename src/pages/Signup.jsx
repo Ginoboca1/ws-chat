@@ -32,7 +32,9 @@ const schema = Joi.object({
 export const Signup = () => {
   const {
     register,
+    handleSubmit,
     formState: { errors },
+    getValues,
   } = useForm({
     mode: "onBlur",
     resolver: joiResolver(schema),
@@ -42,28 +44,17 @@ export const Signup = () => {
   // const { signUp } = useAuth();
   // const navigate = useNavigate();
 
-  // const onSubmit = async () => {
-  //   try {
-  //     await signUp(user.email, user.password);
-  //     navigate("/userAuthFirebase/home");
-  //   } catch (error) {
-  //     if (error) {
-  //       setError("Already registered user");
-  //     }
-  //     if (error.code === "auth/internal-error") {
-  //       setError("Invalid email");
-  //     }
-  //     if (error.code === "auth/weak-password") {
-  //       setError("The password must have a minimum of six characters");
-  //     }
-  //     if (error.code === 400) {
-  //       setError("Already registered user");
-  //     }
-  //   }
-  // };
+  const onSubmit = async () => {
+    const data = getValues();
+    console.log(data);
+  };
+
   return (
     <div className="bg-black py-8 px-6 shadow rounded-lg sm:px-10 max-w-sm mx-auto">
-      <form className=" max-w-sm mx-auto text-white ">
+      <form
+        className=" max-w-sm mx-auto text-white"
+        onSubmit={handleSubmit(onSubmit)}
+      >
         <div className="form-field mb-4 text-start">
           <Input
             type="email"
