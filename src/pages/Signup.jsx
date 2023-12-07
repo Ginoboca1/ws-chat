@@ -1,7 +1,7 @@
-import { Input } from "../components/Input";
-import { useForm } from "react-hook-form";
 import { joiResolver } from "@hookform/resolvers/joi";
+import Input from "../components/Input.jsx";
 import Joi from "joi";
+import { useForm } from "react-hook-form";
 import { NavLink } from "react-router-dom";
 
 const schema = Joi.object({
@@ -61,37 +61,45 @@ export const Signup = () => {
   //     }
   //   }
   // };
-
   return (
-    <div className="form-container">
-      <form className="form">
-        <div className="form-field">
+    <div className="bg-black py-8 px-6 shadow rounded-lg sm:px-10 max-w-sm mx-auto">
+      <form className=" max-w-sm mx-auto text-white ">
+        <div className="form-field mb-4 text-start">
           <Input
             type="email"
-            nameInput={"email"}
-            nameTitle={"Email"}
+            nameInput="email"
+            nameTitle="Email"
             register={register}
             error={errors.email?.message}
+            placeholder={"Email"}
           />
         </div>
 
-        <div className="form-field">
+        <div className="form-field mb-4 text-start">
           <Input
-            type={"password"}
-            nameInput={"password"}
-            nameTitle={"Password"}
+            type="password"
+            nameInput="password"
+            nameTitle="Password"
             register={register}
             error={errors.password?.message}
+            placeholder={"Password"}
           />
         </div>
 
-        <div className="submit-area">
-          <button className="form-btn">register</button>
+        <div className="submit-area mb-3">
+          <button className="form-btn bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+            Register
+          </button>
         </div>
       </form>
-      <div className="text-contain">
-        <p>Do you have an account?</p>
-        <NavLink to="/login">Login</NavLink>
+      <div className="flex items-center justify-center h-5">
+        <p className="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+          Do you have an account?
+        </p>
+        <div className="mx-1"></div>
+        <NavLink to="/login" className="text-blue-500 hover:underline mb-1">
+          Login
+        </NavLink>
       </div>
     </div>
   );

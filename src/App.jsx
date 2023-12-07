@@ -6,12 +6,12 @@ import "./App.css";
 
 function App() {
   return (
-    <>
+    <div>
       <Routes>
+        <Route exact path="/" element={<Login />} />
         <Route path="/register" element={<Signup />} />
-        <Route path="/login" element={<Login />} />
       </Routes>
-    </>
+    </div>
   );
 }
 
