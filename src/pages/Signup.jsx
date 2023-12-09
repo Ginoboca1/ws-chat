@@ -3,8 +3,14 @@ import Input from "../components/Input.jsx";
 import Joi from "joi";
 import { useForm } from "react-hook-form";
 import { NavLink } from "react-router-dom";
+import { useAuth } from "../context/authContext.jsx";
 
 const schema = Joi.object({
+  name: Joi.string().min(3).required().messages({
+    "string.pattern.base": "nombre incorrecto",
+    "string.min": "Password must be at least 3 characters long",
+    "string.empty": "Password is required",
+  }),
   email: Joi.string()
     .email({ minDomainSegments: 2, tlds: { allow: ["com", "net"] } })
     .required()
@@ -19,11 +25,12 @@ const schema = Joi.object({
     }),
   password: Joi.string()
     .min(8)
-    .pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/)
+    .pattern(
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&.])[a-zA-Z\d@$!%*?&.]{8,}$/
+    )
     .required()
     .messages({
-      "string.pattern.base":
-        "The password must contain at least one lowercase letter, one uppercase letter, and one digit",
+      "string.pattern.base": "The password must contain at ",
       "string.min": "Password must be at least 8 characters long",
       "string.empty": "Password is required",
     }),
@@ -40,13 +47,11 @@ export const Signup = () => {
     resolver: joiResolver(schema),
   });
 
-  // const [error, setError] = useState("");
-  // const { signUp } = useAuth();
-  // const navigate = useNavigate();
+  const { signup } = useAuth();
 
   const onSubmit = async () => {
     const data = getValues();
-    console.log(data);
+    await signup(data);
   };
 
   return (
@@ -54,7 +59,18 @@ export const Signup = () => {
       <form
         className="mx-auto text-white text-center min-w-max"
         onSubmit={handleSubmit(onSubmit)}
+        method="POST"
       >
+        <div className="form-field mb-4 text-start">
+          <Input
+            type="name"
+            nameInput="name"
+            nameTitle="Name"
+            register={register}
+            error={errors.name?.message}
+            placeholder={"Name"}
+          />
+        </div>
         <div className="form-field mb-4 text-start">
           <Input
             type="email"
@@ -88,7 +104,7 @@ export const Signup = () => {
           Do you have an account?
         </p>
         <div className="mx-1"></div>
-        <NavLink to="/login" className="text-blue-500 hover:underline mb-1">
+        <NavLink to="/" className="text-blue-500 hover:underline mb-1">
           Login
         </NavLink>
       </div>
