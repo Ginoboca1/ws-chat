@@ -50,9 +50,9 @@ export const Signup = () => {
   };
 
   return (
-    <div className="bg-black py-8 px-6 shadow rounded-lg sm:px-10 max-w-sm mx-auto">
+    <div className=" bg-black/50 shadow rounded-lg sm:px-10 w-1/3 py-12 px-5">
       <form
-        className=" max-w-sm mx-auto text-white"
+        className="mx-auto text-white text-center min-w-max"
         onSubmit={handleSubmit(onSubmit)}
       >
         <div className="form-field mb-4 text-start">
@@ -77,13 +77,13 @@ export const Signup = () => {
           />
         </div>
 
-        <div className="submit-area mb-3">
+        <div className="submit-area mb-5">
           <button className="form-btn bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
             Register
           </button>
         </div>
       </form>
-      <div className="flex items-center justify-center h-5">
+      <div className="flex items-center gap justify-center h-5">
         <p className="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">
           Do you have an account?
         </p>
