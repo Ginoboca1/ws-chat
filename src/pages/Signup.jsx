@@ -4,6 +4,9 @@ import Joi from "joi";
 import { useForm } from "react-hook-form";
 import { NavLink } from "react-router-dom";
 import { useAuth } from "../context/authContext.jsx";
+import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
+import { Message } from "../components/Message.jsx";
 
 const schema = Joi.object({
   name: Joi.string().min(3).required().messages({
@@ -30,7 +33,8 @@ const schema = Joi.object({
     )
     .required()
     .messages({
-      "string.pattern.base": "The password must contain at ",
+      "string.pattern.base":
+        "The password must contain at special characters, numbers and mayus",
       "string.min": "Password must be at least 8 characters long",
       "string.empty": "Password is required",
     }),
@@ -47,15 +51,23 @@ export const Signup = () => {
     resolver: joiResolver(schema),
   });
 
-  const { signup } = useAuth();
+  const navigate = useNavigate();
+  const { signup, errors: registerErrors, isAuthenticated } = useAuth();
 
   const onSubmit = async () => {
     const data = getValues();
     await signup(data);
   };
 
+  useEffect(() => {
+    if (isAuthenticated) navigate("/");
+  }, [isAuthenticated, navigate]);
+
   return (
     <div className=" bg-black/50 shadow rounded-lg sm:px-10 w-1/3 py-12 px-5">
+      {registerErrors.map((error, i) => (
+        <Message message={error} key={i} />
+      ))}
       <form
         className="mx-auto text-white text-center min-w-max"
         onSubmit={handleSubmit(onSubmit)}

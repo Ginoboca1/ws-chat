@@ -1,3 +1,4 @@
+/* eslint-disable no-useless-catch */
 import axios from "./axios";
 
 export const registerRequest = async (user) => {
@@ -5,7 +6,6 @@ export const registerRequest = async (user) => {
     const res = await axios.post(`/auth/signup`, user);
     return res;
   } catch (error) {
-    console.error("Detalles del error:", error.response.data);
     throw error;
   }
 };

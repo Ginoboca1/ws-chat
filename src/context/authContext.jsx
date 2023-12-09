@@ -1,4 +1,4 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useState, useEffect } from "react";
 import { loginRequest, registerRequest } from "../api/auth";
 
 const AuthContext = createContext();
@@ -14,14 +14,37 @@ export const useAuth = () => {
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [errors /*setErrors*/] = useState([]);
+  const [errors, setErrors] = useState([]);
+
+  useEffect(() => {
+    if (errors.length > 0) {
+      const timer = setTimeout(() => {
+        setErrors([]);
+      }, 4000);
+      return () => clearTimeout(timer);
+    }
+  }, [errors]);
 
   const signup = async (user) => {
     try {
       const res = await registerRequest(user);
-      console.log(res);
+
+      if (res.status === 200) {
+        setUser(res.data);
+        setIsAuthenticated(true);
+      }
     } catch (error) {
-      console.log(error);
+      let errorMessage =
+        "Ocurrió un error inesperado. Por favor, inténtalo de nuevo más tarde.";
+
+      if (error.response) {
+        errorMessage = error.response.data.message;
+      } else if (error.request) {
+        errorMessage =
+          "Error de conexión. Por favor, inténtalo de nuevo más tarde.";
+      }
+
+      setErrors([...errors, errorMessage]);
     }
   };
 

@@ -56,7 +56,7 @@ export const Login = () => {
         className="mx-auto text-white text-center min-w-max"
         onSubmit={handleSubmit(onSubmit)}
       >
-        <div className="form-field mb-4 text-start">
+        <div className="form-field mb-4 text-start max-w-xs">
           <Input
             type="email"
             nameInput="email"
@@ -86,10 +86,10 @@ export const Login = () => {
       </form>
       <div className="flex items-center gap justify-center h-5">
         <p className="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">
-          Do you have an account?
+          You dont have an account?
         </p>
         <div className="mx-1"></div>
-        <NavLink to="/login" className="text-blue-500 hover:underline mb-1">
+        <NavLink to="/register" className="text-blue-500 hover:underline mb-1">
           Register
         </NavLink>
       </div>
