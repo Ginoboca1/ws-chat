@@ -1,4 +1,4 @@
-export const button = ({ type, titleButton, className }) => {
+export const Button = ({ type, titleButton, className }) => {
   return (
     <div>
       <button type={type} className={className}>
