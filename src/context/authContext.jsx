@@ -17,7 +17,7 @@ export const AuthProvider = ({ children }) => {
   const [errors, setErrors] = useState([]);
 
   useEffect(() => {
-    if (errors.length > 0) {
+    if (errors) {
       const timer = setTimeout(() => {
         setErrors([]);
       }, 4000);
