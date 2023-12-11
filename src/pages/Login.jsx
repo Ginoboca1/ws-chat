@@ -3,6 +3,7 @@ import Input from "../components/Input.jsx";
 import Joi from "joi";
 import { useForm } from "react-hook-form";
 import { NavLink } from "react-router-dom";
+import { useAuth } from "../context/authContext.jsx";
 
 const schema = Joi.object({
   email: Joi.string()
@@ -19,7 +20,9 @@ const schema = Joi.object({
     }),
   password: Joi.string()
     .min(8)
-    .pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/)
+    .pattern(
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&.])[a-zA-Z\d@$!%*?&.]{8,}$/
+    )
     .required()
     .messages({
       "string.pattern.base":
@@ -40,13 +43,12 @@ export const Login = () => {
     resolver: joiResolver(schema),
   });
 
-  // const [error, setError] = useState("");
-  // const { signUp } = useAuth();
-  // const navigate = useNavigate();
+  const { signin } = useAuth();
 
   const onSubmit = async () => {
     const data = getValues();
-    console.log(data);
+    // console.log(data);
+    await signin(data);
   };
 
   return (
@@ -56,7 +58,7 @@ export const Login = () => {
         className="mx-auto text-white text-center min-w-max"
         onSubmit={handleSubmit(onSubmit)}
       >
-        <div className="form-field mb-4 text-start max-w-xs">
+        <div className="form-field mb-4 text-start">
           <Input
             type="email"
             nameInput="email"
@@ -77,7 +79,6 @@ export const Login = () => {
             placeholder={"Password"}
           />
         </div>
-
         <div className="submit-area mb-5">
           <button className="form-btn bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
             Login
@@ -86,7 +87,7 @@ export const Login = () => {
       </form>
       <div className="flex items-center gap justify-center h-5">
         <p className="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">
-          You dont have an account?
+          Do you have an account?
         </p>
         <div className="mx-1"></div>
         <NavLink to="/register" className="text-blue-500 hover:underline mb-1">
