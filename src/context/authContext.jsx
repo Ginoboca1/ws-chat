@@ -54,7 +54,15 @@ export const AuthProvider = ({ children }) => {
       localStorage.setItem("token", res.data.token);
       setIsAuthenticated(true);
     } catch (error) {
-      console.log(error);
+      let errorMessage =
+        "Ocurrió un error inesperado. Por favor, inténtalo de nuevo más tarde.";
+      if (error.response) {
+        errorMessage = error.response.data.message;
+      } else if (error.request) {
+        errorMessage =
+          "Error de conexión. Por favor, inténtalo de nuevo más tarde.";
+      }
+      setErrors([...errors, errorMessage]);
     }
   };
   return (

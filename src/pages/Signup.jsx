@@ -1,11 +1,10 @@
 import { joiResolver } from "@hookform/resolvers/joi";
-import Input from "../components/Input.jsx";
 import Joi from "joi";
 import { useForm } from "react-hook-form";
-import { NavLink } from "react-router-dom";
-import { useAuth } from "../context/authContext.jsx";
-import { useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
+import Input from "../components/Input.jsx";
 import { Message } from "../components/Message.jsx";
+import { useAuth } from "../context/authContext.jsx";
 
 const schema = Joi.object({
   name: Joi.string().min(3).required().messages({
@@ -64,6 +63,7 @@ export const Signup = () => {
       {registerErrors.map((error, i) => (
         <Message message={error} key={i} />
       ))}
+      <h3 className="text-white font-bold text-start mb-8 text-xl">REGISTER</h3>
       <form
         className="mx-auto text-white text-center min-w-max"
         onSubmit={handleSubmit(onSubmit)}
@@ -109,7 +109,7 @@ export const Signup = () => {
       </form>
       <div className="flex items-center gap justify-center h-5">
         <p className="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">
-          Do you have an account?
+          Already have an account?
         </p>
         <div className="mx-1"></div>
         <NavLink to="/" className="text-blue-500 hover:underline mb-1">
