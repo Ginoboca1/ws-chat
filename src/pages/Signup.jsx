@@ -5,7 +5,6 @@ import { useForm } from "react-hook-form";
 import { NavLink } from "react-router-dom";
 import { useAuth } from "../context/authContext.jsx";
 import { useNavigate } from "react-router-dom";
-import { useEffect } from "react";
 import { Message } from "../components/Message.jsx";
 
 const schema = Joi.object({
@@ -52,16 +51,13 @@ export const Signup = () => {
   });
 
   const navigate = useNavigate();
-  const { signup, errors: registerErrors, isAuthenticated } = useAuth();
+  const { signup, errors: registerErrors } = useAuth();
 
   const onSubmit = async () => {
     const data = getValues();
     await signup(data);
+    navigate("/");
   };
-
-  useEffect(() => {
-    if (isAuthenticated) navigate("/");
-  }, [isAuthenticated, navigate]);
 
   return (
     <div className=" bg-black/50 shadow rounded-lg sm:px-10 w-1/3 py-12 px-5">

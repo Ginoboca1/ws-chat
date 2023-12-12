@@ -2,8 +2,9 @@ import { joiResolver } from "@hookform/resolvers/joi";
 import Input from "../components/Input.jsx";
 import Joi from "joi";
 import { useForm } from "react-hook-form";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/authContext.jsx";
+import { useEffect } from "react";
 
 const schema = Joi.object({
   email: Joi.string()
@@ -43,13 +44,20 @@ export const Login = () => {
     resolver: joiResolver(schema),
   });
 
-  const { signin } = useAuth();
+  const { signin, isAuthenticated } = useAuth();
+  const navigate = useNavigate();
 
   const onSubmit = async () => {
     const data = getValues();
     // console.log(data);
     await signin(data);
   };
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      navigate("/chat");
+    }
+  }, [isAuthenticated, navigate]);
 
   return (
     <div className=" bg-black/50 shadow rounded-lg sm:px-10 w-1/3 py-12 px-5">
