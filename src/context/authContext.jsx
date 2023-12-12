@@ -31,7 +31,6 @@ export const AuthProvider = ({ children }) => {
 
       if (res.status === 200) {
         setUser(res.data);
-        setIsAuthenticated(true);
       }
     } catch (error) {
       let errorMessage =
@@ -52,6 +51,7 @@ export const AuthProvider = ({ children }) => {
     try {
       const res = await loginRequest(user);
       setUser(res.data);
+      localStorage.setItem("token", res.data.token);
       setIsAuthenticated(true);
     } catch (error) {
       console.log(error);
