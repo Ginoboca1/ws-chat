@@ -19,9 +19,8 @@ const Input = ({
       <input
         type={type}
         name={nameInput}
-        className={`mt-1 p-2 border rounded-md ${inputClass} focus:outline-none focus:border-indigo-500 focus:ring-1 bg-black/40`}
+        className={`w-full p-2 border rounded-md ${inputClass} focus:outline-none focus:border-indigo-500 focus:ring-1 bg-black/40`}
         placeholder={placeholder}
-        style={{ width: "100%" }} // Cambia el valor fijo a un porcentaje o unidad relativa
         {...register(nameInput, {
           required: { value: true, message: "This field is required" },
         })}
