@@ -28,7 +28,7 @@ const Input = ({
       />
       <div
         className="flex gap-2  items-center mx-2"
-        // style={{ width: "25rem", height: "4rem" }}
+        style={{ width: "15rem", height: "4rem" }}
       >
         <i className={error ? "text-red-500" : "text-transparent"}>
           <AiFillExclamationCircle />
