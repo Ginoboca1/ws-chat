@@ -1,11 +1,10 @@
 import { joiResolver } from "@hookform/resolvers/joi";
-import Input from "../components/Input.jsx";
 import Joi from "joi";
 import { useForm } from "react-hook-form";
-import { NavLink } from "react-router-dom";
-import { useAuth } from "../context/authContext.jsx";
-import { useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
+import Input from "../components/Input.jsx";
 import { Message } from "../components/Message.jsx";
+import { useAuth } from "../context/authContext.jsx";
 
 export const Signup = () => {
   const schema = Joi.object({
@@ -71,6 +70,7 @@ export const Signup = () => {
       {registerErrors.map((error, i) => (
         <Message message={error} key={i} />
       ))}
+      <h3 className="text-white font-bold text-start mb-8 text-xl">REGISTER</h3>
       <form
         className="text-white text-center bg-black/50 shadow rounded-lg sm:px-10 w-full max-w-md py-6 px-5 flex flex-col"
         onSubmit={handleSubmit(onSubmit)}

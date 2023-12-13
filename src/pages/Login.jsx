@@ -1,10 +1,11 @@
 import { joiResolver } from "@hookform/resolvers/joi";
-import Input from "../components/Input.jsx";
 import Joi from "joi";
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { NavLink, useNavigate } from "react-router-dom";
+import Input from "../components/Input.jsx";
+import { Message } from "../components/Message.jsx";
 import { useAuth } from "../context/authContext.jsx";
-import { useEffect } from "react";
 
 const schema = Joi.object({
   email: Joi.string()
@@ -44,12 +45,11 @@ export const Login = () => {
     resolver: joiResolver(schema),
   });
 
-  const { signin, isAuthenticated } = useAuth();
   const navigate = useNavigate();
+  const { signin, isAuthenticated, errors: loginErrors } = useAuth();
 
   const onSubmit = async () => {
     const data = getValues();
-    // console.log(data);
     await signin(data);
   };
 
@@ -61,6 +61,9 @@ export const Login = () => {
 
   return (
     <div className=" bg-black/50 shadow rounded-lg sm:px-10 w-1/3 py-12 px-5">
+      {loginErrors.map((error, i) => (
+        <Message message={error} key={i} />
+      ))}
       <h3 className="text-white font-bold text-start mb-8 text-xl">LOGIN</h3>
       <form
         className="mx-auto text-white text-center min-w-max"
