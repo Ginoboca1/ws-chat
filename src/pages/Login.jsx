@@ -86,6 +86,7 @@ export const Login = () => {
             error={errors.password?.message}
             placeholder={"Password"}
           />
+          
         </div>
         <div className="submit-area mb-5">
           <button className="form-btn bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
