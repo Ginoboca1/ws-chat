@@ -18,24 +18,9 @@ export const Chat = () => {
   useEffect(() => {
     const socket = io("http://localhost:3000");
 
-    // Manejar eventos del servidor
     socket.on("connection", () => {
       console.log("Conectado al servidor de socket.io");
     });
-
-    socket.on("on-message", (data) => {
-      console.log("Mensaje del servidor:", data);
-    });
-
-    // Manejar eventos de desconexión
-    socket.on("disconnect", () => {
-      console.log("Desconectado del servidor de socket.io");
-    });
-
-    // Realizar alguna limpieza cuando el componente se desmonte
-    return () => {
-      socket.disconnect(); // Desconectar cuando el componente se desmonta
-    };
   }, []);
 
   return (
