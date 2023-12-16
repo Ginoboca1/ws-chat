@@ -1,8 +1,12 @@
 /* eslint-disable react/no-unescaped-entities */
+import { useEffect } from "react";
 import { Button } from "../components/button";
 import "./style/chat.css";
 import { FaPaperPlane } from "react-icons/fa6";
+import { FaPhoneAlt } from "react-icons/fa";
+
 import { useNavigate } from "react-router-dom";
+import io from "socket.io-client";
 
 export const Chat = () => {
   const navigate = useNavigate();
@@ -11,8 +15,16 @@ export const Chat = () => {
     navigate("/");
   };
 
+  useEffect(() => {
+    const socket = io("http://localhost:3000");
+
+    socket.on("connection", () => {
+      console.log("Conectado al servidor de socket.io");
+    });
+  }, []);
+
   return (
-    <div className="main-contain">
+    <div className="main-contain bg-black/50 rounded-xl p-5 flex text-gray-300">
       <Button
         className={"bg-blue-500 hover:bg-blue-700 px-4 py-1.5 rounded-sm"}
         titleButton={"Logout"}
@@ -36,9 +48,13 @@ export const Chat = () => {
         <div className="chat ">
           <div className="contact bar">
             <div className="pic stark"></div>
-
-            <div className="name">Tony Stark</div>
-            <div className="seen">Hoy a las 12:56</div>
+            <div className="contact-info">
+              <div className="name text-gray-900">Tony Stark</div>
+              <div className="seen">Hoy a las 12:56</div>
+            </div>
+            <i className="phone-icon">
+              <FaPhoneAlt />
+            </i>
           </div>
 
           <div className="messages " id="chat">
@@ -48,7 +64,7 @@ export const Chat = () => {
               Uh, what is this guy's problem, Mr. Stark? 🤔
             </div>
 
-            <div className="message ">
+            <div className="message text-gray-900">
               Uh, he's from space, he came here to steal a necklace from a
               wizard.
             </div>
