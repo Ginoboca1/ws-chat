@@ -6,39 +6,44 @@ import Input from "../components/Input.jsx";
 import { Message } from "../components/Message.jsx";
 import { useAuth } from "../context/authContext.jsx";
 
-const schema = Joi.object({
-  name: Joi.string().min(3).required().messages({
-    "string.pattern.base": "nombre incorrecto",
-    "string.min": "Password must be at least 3 characters long",
-    "string.empty": "Password is required",
-  }),
-  email: Joi.string()
-    .email({ minDomainSegments: 2, tlds: { allow: ["com", "net"] } })
-    .required()
-    .messages({
-      "string.base": "The email must be a text string",
-      "string.empty": "Email is required",
-      "string.email": "The email must be a valid email address",
-      "string.minDomainSegments":
-        "The email must have at least 2 domain segments",
-      "string.tlds.allow":
-        "The email must have a valid top-level domain (.com or .net)",
-    }),
-  password: Joi.string()
-    .min(8)
-    .pattern(
-      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&.])[a-zA-Z\d@$!%*?&.]{8,}$/
-    )
-    .required()
-    .messages({
-      "string.pattern.base":
-        "The password must contain at special characters, numbers and mayus",
-      "string.min": "Password must be at least 8 characters long",
-      "string.empty": "Password is required",
-    }),
-});
-
 export const Signup = () => {
+  const schema = Joi.object({
+    name: Joi.string().min(3).required().messages({
+      "string.base": "Invalid input for name",
+      "string.min": "Name should have at least 3 characters",
+      "string.empty": "Name is required",
+    }),
+
+    email: Joi.string()
+      .email({
+        minDomainSegments: 2,
+        tlds: { allow: ["com", "net"] },
+      })
+      .required()
+      .messages({
+        "string.base": "Invalid input for email",
+        "string.empty": "Email is required",
+        "string.email": "Please provide a valid email address",
+        "string.minDomainSegments":
+          "Email should have at least 2 domain segments",
+        "string.tlds.allow":
+          "Email must have a valid top-level domain (.com or .net)",
+      }),
+
+    password: Joi.string()
+      .min(8)
+      .pattern(
+        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&.])[a-zA-Z\d@$!%*?&.]{8,}$/
+      )
+      .required()
+      .messages({
+        "string.pattern.base":
+          "Password must contain special characters, numbers and uppercase letters",
+        "string.min": "Password should be at least 8 characters long",
+        "string.empty": "Password is required",
+      }),
+  });
+
   const {
     register,
     handleSubmit,
@@ -55,21 +60,25 @@ export const Signup = () => {
   const onSubmit = async () => {
     const data = getValues();
     await signup(data);
-    navigate("/");
+    if (!registerErrors) {
+      navigate("/");
+    }
   };
 
   return (
-    <div className=" bg-black/50 shadow rounded-lg sm:px-10 w-1/3 py-12 px-5">
+    <div className="flex flex-col items-center justify-center">
       {registerErrors.map((error, i) => (
         <Message message={error} key={i} />
       ))}
-      <h3 className="text-white font-bold text-start mb-8 text-xl">REGISTER</h3>
       <form
-        className="mx-auto text-white text-center min-w-max"
+        className="text-white text-center bg-black/50 shadow rounded-lg sm:px-10 w-full max-w-md py-6 px-5 flex flex-col"
         onSubmit={handleSubmit(onSubmit)}
         method="POST"
       >
-        <div className="form-field mb-4 text-start">
+        <h3 className="text-white font-semibold mb-3 text-center text-xl sm:text-2xl">
+          Register
+        </h3>
+        <div className="form-field text-start">
           <Input
             type="name"
             nameInput="name"
@@ -79,7 +88,7 @@ export const Signup = () => {
             placeholder={"Name"}
           />
         </div>
-        <div className="form-field mb-4 text-start">
+        <div className="form-field text-start">
           <Input
             type="email"
             nameInput="email"
@@ -89,7 +98,6 @@ export const Signup = () => {
             placeholder={"Email"}
           />
         </div>
-
         <div className="form-field mb-4 text-start">
           <Input
             type="password"
@@ -100,22 +108,21 @@ export const Signup = () => {
             placeholder={"Password"}
           />
         </div>
-
         <div className="submit-area mb-5">
-          <button className="form-btn bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-            Register
+          <button className="form-btn bg-blue-500 hover:bg-blue-700 text-white uppercase font py-3 px-6 rounded sm:py-2 sm:px-4">
+            signup
           </button>
         </div>
+        <div className="flex items-center gap justify-center h-5">
+          <p className="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+            Do you have an account?
+          </p>
+          <div className="mx-1"></div>
+          <NavLink to="/" className="text-blue-500 hover:underline mb-1">
+            Login
+          </NavLink>
+        </div>
       </form>
-      <div className="flex items-center gap justify-center h-5">
-        <p className="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">
-          Already have an account?
-        </p>
-        <div className="mx-1"></div>
-        <NavLink to="/" className="text-blue-500 hover:underline mb-1">
-          Login
-        </NavLink>
-      </div>
     </div>
   );
 };
