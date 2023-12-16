@@ -14,14 +14,19 @@ html {
   margin-left: 20px;
 }
 
+.status-info {
+  display: flex;
+  gap:20px;
+}
+
 .hidden {
   display: none;
 }
 
-#status-online {
+.status-online {
   color: green;
 }
-#status-offline {
+.status-offline {
   color: red;
 }
 

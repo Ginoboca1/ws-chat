@@ -1,15 +1,23 @@
 /* eslint-disable react/no-unescaped-entities */
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "../components/button";
 import "./style/chat.css";
 import { FaPaperPlane } from "react-icons/fa6";
 import { FaPhoneAlt } from "react-icons/fa";
+// import { decode } from "jsonwebtoken";
 
 import { useNavigate } from "react-router-dom";
 import io from "socket.io-client";
 
 export const Chat = () => {
   const navigate = useNavigate();
+  const [status, setStatus] = useState(false);
+  const [userName, setUserName] = useState();
+
+  // const decodeToken = (token) => {
+  //   return decode(token);
+  // };
+
   const logout = () => {
     localStorage.removeItem("token");
     navigate("/");
@@ -17,10 +25,19 @@ export const Chat = () => {
 
   useEffect(() => {
     const socket = io("http://localhost:3000");
-
-    socket.on("connection", () => {
-      console.log("Conectado al servidor de socket.io");
+    socket.on("connect", () => {
+      setStatus(true);
     });
+
+    const token = localStorage.getItem("token");
+    console.log(token);
+    // if (token) {
+    //   const decodedToken = decodeToken(token);
+    //   if (decodedToken) {
+    //     const { name } = decodedToken;
+    //     setUserName(name);
+    //   }
+    // }
   }, []);
 
   return (
@@ -32,11 +49,15 @@ export const Chat = () => {
       />
       <Button clickAction={logout} className={"w-5"} />
       <div className="information-bubble">
-        <h3>
-          Estado del chat:
-          <small className="hidden">online</small>
-          <small className="hidden">offline</small>
-        </h3>
+        <h3>Usuario: {userName || "Usuario Desconocido"}</h3>
+        <div className="status-info">
+          <h3>Estado del chat: </h3>
+          {status ? (
+            <p className="status-online">online</p>
+          ) : (
+            <p className="status-offline">offline</p>
+          )}
+        </div>
 
         <h3>Personas conectadas</h3>
         <ul>
