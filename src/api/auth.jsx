@@ -13,10 +13,17 @@ export const registerRequest = async (user) => {
 export const loginRequest = async (user) => {
   try {
     const res = await axios.post(`/auth/login`, user);
-    console.log(res);
     return res;
   } catch (error) {
-    console.error(error);
+    throw error;
+  }
+};
+
+export const decodedRequest = async (token) => {
+  try {
+    const res = await axios.post(`/auth/${token}`);
+    return res;
+  } catch (error) {
     throw error;
   }
 };

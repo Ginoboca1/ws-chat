@@ -1,5 +1,5 @@
 import { createContext, useContext, useState, useEffect } from "react";
-import { loginRequest, registerRequest } from "../api/auth";
+import { loginRequest, registerRequest, decodedRequest } from "../api/auth";
 
 const AuthContext = createContext();
 
@@ -65,12 +65,23 @@ export const AuthProvider = ({ children }) => {
       setErrors([...errors, errorMessage]);
     }
   };
+
+  const decodedToken = async (token) => {
+    try {
+      const res = await decodedRequest(token);
+      return res.data; // Asumiendo que los datos decodificados están en res.data
+    } catch (error) {
+      let errorMessage = "Error while decoding token";
+      setErrors([...errors, errorMessage]);
+    }
+  };
   return (
     <AuthContext.Provider
       value={{
         user,
         signup,
         signin,
+        decodedToken,
         isAuthenticated,
         errors,
       }}

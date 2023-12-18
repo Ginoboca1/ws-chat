@@ -4,23 +4,21 @@ import { Button } from "../components/button";
 import "./style/chat.css";
 import { FaPaperPlane } from "react-icons/fa6";
 import { FaPhoneAlt } from "react-icons/fa";
-// import { decode } from "jsonwebtoken";
 
 import { useNavigate } from "react-router-dom";
 import io from "socket.io-client";
+import { useAuth } from "../context/authContext";
 
 export const Chat = () => {
   const navigate = useNavigate();
   const [status, setStatus] = useState(false);
   const [userName, setUserName] = useState();
+  const { decodedToken } = useAuth();
+  const [users, setUsers] = useState([]);
 
-  // const decodeToken = (token) => {
-  //   return decode(token);
-  // };
-
-  const logout = () => {
-    localStorage.removeItem("token");
-    navigate("/");
+  const decodeToken = async (token) => {
+    const result = await decodedToken(token);
+    return result;
   };
 
   useEffect(() => {
@@ -30,15 +28,24 @@ export const Chat = () => {
     });
 
     const token = localStorage.getItem("token");
-    console.log(token);
-    // if (token) {
-    //   const decodedToken = decodeToken(token);
-    //   if (decodedToken) {
-    //     const { name } = decodedToken;
-    //     setUserName(name);
-    //   }
-    // }
-  }, []);
+    if (token) {
+      decodeToken(token)
+        .then((decodedData) => {
+          const { name } = decodedData;
+          setUserName(name);
+          setUsers([...users, name]);
+        })
+        .catch((error) => {
+          console.error(error);
+          navigate("/");
+        });
+    }
+  }, [navigate]);
+
+  const logout = () => {
+    localStorage.removeItem("token");
+    navigate("/");
+  };
 
   return (
     <div className="main-contain bg-black/50 rounded-xl p-5 flex text-gray-300">
@@ -61,8 +68,9 @@ export const Chat = () => {
 
         <h3>Personas conectadas</h3>
         <ul>
-          <li>Fernando</li>
-          <li>Alberto</li>
+          {users.map((user) => (
+            <li key={users.length}>{user}</li>
+          ))}
         </ul>
       </div>
       <div className="bottom-right">
