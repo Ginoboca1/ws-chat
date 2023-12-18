@@ -22,12 +22,17 @@ export const Chat = () => {
   };
 
   useEffect(() => {
+    const token = localStorage.getItem("token");
     const socket = io("http://localhost:3000");
     socket.on("connect", () => {
+      socket.emit("auth", token);
+      socket.on("on-clients-changed", (clients) => {
+        console.log(clients);
+        setUsers(clients);
+      });
       setStatus(true);
     });
 
-    const token = localStorage.getItem("token");
     if (token) {
       decodeToken(token)
         .then((decodedData) => {
@@ -69,7 +74,7 @@ export const Chat = () => {
         <h3>Personas conectadas</h3>
         <ul>
           {users.map((user) => (
-            <li key={users.length}>{user}</li>
+            <li key={user.id}>{user.name}</li>
           ))}
         </ul>
       </div>
