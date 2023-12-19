@@ -1,10 +1,10 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react/no-unescaped-entities */
 import { useEffect, useState } from "react";
 import { Button } from "../components/button";
 import "./style/chat.css";
 import { FaPaperPlane } from "react-icons/fa6";
 import { FaPhoneAlt } from "react-icons/fa";
-
 import { useNavigate } from "react-router-dom";
 import io from "socket.io-client";
 import { useAuth } from "../context/authContext";
@@ -24,11 +24,12 @@ export const Chat = () => {
   useEffect(() => {
     const token = localStorage.getItem("token");
     const socket = io("http://localhost:3000");
+
     socket.on("connect", () => {
       socket.emit("auth", token);
       socket.on("on-clients-changed", (clients) => {
-        console.log(clients);
         setUsers(clients);
+        console.log("socket users:", users);
       });
       setStatus(true);
     });
@@ -36,9 +37,10 @@ export const Chat = () => {
     if (token) {
       decodeToken(token)
         .then((decodedData) => {
-          const { name } = decodedData;
+          const { id, name } = decodedData;
           setUserName(name);
-          setUsers([...users, name]);
+          setUsers([...users, { id, name }]);
+          console.log("token users:", users);
         })
         .catch((error) => {
           console.error(error);

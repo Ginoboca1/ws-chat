@@ -12,8 +12,8 @@ export const UnauthorizedMessage = () => {
           "bg-blue-500 hover:bg-blue-700 px-4 py-1.5 rounded-sm to-black"
         }
       >
-        <NavLink to="/" className="to-black hover:underline mb-1">
-          Login
+        <NavLink to="/register" className="to-black hover:underline mb-1">
+          Register
         </NavLink>
       </button>
     </div>
