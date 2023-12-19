@@ -55,13 +55,12 @@ export const Chat = () => {
   };
 
   return (
-    <div className="main-contain bg-black/50 rounded-xl p-5 flex text-gray-300">
+    <div className="main-container">
       <Button
-        className={"bg-blue-500 hover:bg-blue-700 px-4 py-1.5 rounded-sm"}
+        className={"logout-button"}
         titleButton={"Logout"}
         clickAction={logout}
       />
-      <Button clickAction={logout} className={"w-5"} />
       <div className="information-bubble">
         <h3>Usuario: {userName || "Usuario Desconocido"}</h3>
         <div className="status-info">
@@ -80,49 +79,47 @@ export const Chat = () => {
           ))}
         </ul>
       </div>
-      <div className="bottom-right">
-        <div className="chat ">
-          <div className="contact bar">
-            <div className="pic stark"></div>
-            <div className="contact-info">
-              <div className="name text-gray-900">Tony Stark</div>
-              <div className="seen">Hoy a las 12:56</div>
-            </div>
-            <i className="phone-icon">
-              <FaPhoneAlt />
-            </i>
+
+      <div className="chat ">
+        <div className="contact">
+          <div className="pic stark"></div>
+          <div className="contact-info">
+            <div className="name text-gray-900">Tony Stark</div>
+            <div className="seen">Hoy a las 12:56</div>
           </div>
-
-          <div className="messages " id="chat">
-            <div className="time ">Hoy a las 11:41</div>
-
-            <div className="message incoming ">
-              Uh, what is this guy's problem, Mr. Stark? 🤔
-            </div>
-
-            <div className="message text-gray-900">
-              Uh, he's from space, he came here to steal a necklace from a
-              wizard.
-            </div>
-
-            <div className="message stark">
-              <div className="typing typing-1 inline-block w-2 h-2 mr-0 box-border"></div>
-              <div className="typing typing-2 inline-block w-2 h-2 mr-0 box-border"></div>
-              <div className="typing typing-3 inline-block w-2 h-2 mr-0 box-border"></div>
-            </div>
-          </div>
-
-          <form className="input ">
-            <input
-              className="border-none"
-              placeholder="Escribe tu mensaje aquí"
-              type="text"
-            />
-            <i>
-              <FaPaperPlane />
-            </i>
-          </form>
+          <i className="phone-icon">
+            <FaPhoneAlt />
+          </i>
         </div>
+
+        <div className="messages " id="chat">
+          <div className="time ">Hoy a las 11:41</div>
+
+          <div className="message incoming ">
+            Uh, what is this guy's problem, Mr. Stark? 🤔
+          </div>
+
+          <div className="message text-gray-900">
+            Uh, he's from space, he came here to steal a necklace from a wizard.
+          </div>
+
+          <div className="message stark">
+            <div className="typing typing-1 inline-block w-2 h-2 mr-0 box-border"></div>
+            <div className="typing typing-2 inline-block w-2 h-2 mr-0 box-border"></div>
+            <div className="typing typing-3 inline-block w-2 h-2 mr-0 box-border"></div>
+          </div>
+        </div>
+
+        <form className="input ">
+          <input
+            className="border-none"
+            placeholder="Escribe tu mensaje aquí"
+            type="text"
+          />
+          <i>
+            <FaPaperPlane />
+          </i>
+        </form>
       </div>
     </div>
   );
@@ -130,23 +127,23 @@ export const Chat = () => {
 // export const Chat = () => {
 //   return (
 //     <div className="main-container bg-black text-white">
-//       <div className="information-bubble ml-5">
-//         <h3>
-//           Estado del chat:
-//           <small className="hidden text-green-500" id="status-online">
-//             online
-//           </small>
-//           <small className="hidden text-red-600" id="status-offline">
-//             offline
-//           </small>
-//         </h3>
+// <div className="information-bubble ml-5">
+//   <h3>
+//     Estado del chat:
+//     <small className="hidden text-green-500" id="status-online">
+//       online
+//     </small>
+//     <small className="hidden text-red-600" id="status-offline">
+//       offline
+//     </small>
+//   </h3>
 
-//         <h3>Personas conectadas</h3>
-//         <ul>
-//           <li>Fernando</li>
-//           <li>Alberto</li>
-//         </ul>
-//       </div>
+//   <h3>Personas conectadas</h3>
+//   <ul>
+//     <li>Fernando</li>
+//     <li>Alberto</li>
+//   </ul>
+// </div>
 //       <div className="bottom-right absolute bottom-0 right-10">
 //         <div className="chat relative flex flex-col justify-between w-96 h-152 z-2 box-border rounded-lg bg-white shadow-2xl">
 //           <div className="contact bar relative mb-4 pl-20 h-18 flex flex-col justify-center flex-shrink-0 flex-basis-14 m-4 box-border">
