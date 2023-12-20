@@ -32,6 +32,9 @@ export const Chat = () => {
         console.log("socket users:", users);
       });
       setStatus(true);
+      socket.emit('disconnect', () => {
+        console.log('funciona');
+      })
     });
 
     if (token) {
