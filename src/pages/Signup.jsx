@@ -110,12 +110,12 @@ export const Signup = () => {
         </div>
         <div className="submit-area mb-5">
           <button className="form-btn bg-blue-500 hover:bg-blue-700 text-white uppercase font py-3 px-6 rounded sm:py-2 sm:px-4">
-            signup
+            Signup
           </button>
         </div>
         <div className="flex items-center gap justify-center h-5">
           <p className="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">
-            Do you have an account?
+            Do you already have an account?
           </p>
           <div className="mx-1"></div>
           <NavLink to="/" className="text-blue-500 hover:underline mb-1">
