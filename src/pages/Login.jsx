@@ -1,6 +1,5 @@
 import { joiResolver } from "@hookform/resolvers/joi";
 import Joi from "joi";
-import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { NavLink, useNavigate } from "react-router-dom";
 import Input from "../components/Input.jsx";
@@ -51,13 +50,16 @@ export const Login = () => {
   const onSubmit = async () => {
     const data = getValues();
     await signin(data);
-  };
-
-  useEffect(() => {
     if (isAuthenticated) {
       navigate("/chat");
     }
-  }, [isAuthenticated, navigate]);
+  };
+
+  // useEffect(() => {
+  //   if (isAuthenticated) {
+  //     navigate("/chat");
+  //   }
+  // }, [isAuthenticated, navigate]);
 
   return (
     <div className="flex flex-col items-center justify-center">
