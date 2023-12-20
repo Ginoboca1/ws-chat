@@ -15,27 +15,33 @@ export const Chat = () => {
   const [userName, setUserName] = useState();
   const { decodedToken } = useAuth();
   const [users, setUsers] = useState([]);
+  const [connected, setConnected] = useState(false);
 
   const decodeToken = async (token) => {
     const result = await decodedToken(token);
     return result;
   };
+  const socket = io("http://localhost:3000");
 
   useEffect(() => {
     const token = localStorage.getItem("token");
-    const socket = io("http://localhost:3000");
 
     socket.on("connect", () => {
+      setConnected(true);
       socket.emit("auth", token);
       socket.on("on-clients-changed", (clients) => {
         setUsers(clients);
         console.log("socket users:", users);
       });
       setStatus(true);
+    });
+    
+    socket.on("disconnect", () => {
+      setConnected(false);
       socket.emit('disconnect', () => {
         console.log('funciona');
       })
-    });
+    })
 
     if (token) {
       decodeToken(token)
@@ -53,6 +59,7 @@ export const Chat = () => {
   }, [navigate]);
 
   const logout = () => {
+    socket.disconnect()
     localStorage.removeItem("token");
     navigate("/");
   };
