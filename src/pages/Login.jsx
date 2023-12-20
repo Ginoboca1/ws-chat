@@ -1,6 +1,5 @@
 import { joiResolver } from "@hookform/resolvers/joi";
 import Joi from "joi";
-import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { NavLink, useNavigate } from "react-router-dom";
 import Input from "../components/Input.jsx";
@@ -51,13 +50,16 @@ export const Login = () => {
   const onSubmit = async () => {
     const data = getValues();
     await signin(data);
-  };
-
-  useEffect(() => {
     if (isAuthenticated) {
       navigate("/chat");
     }
-  }, [isAuthenticated, navigate]);
+  };
+
+  // useEffect(() => {
+  //   if (isAuthenticated) {
+  //     navigate("/chat");
+  //   }
+  // }, [isAuthenticated, navigate]);
 
   return (
     <div className=" bg-black/50 shadow rounded-lg sm:px-10 w-1/3 py-12 px-5">
@@ -89,7 +91,6 @@ export const Login = () => {
             error={errors.password?.message}
             placeholder={"Password"}
           />
-          
         </div>
         <div className="submit-area mb-5">
           <button className="form-btn bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
