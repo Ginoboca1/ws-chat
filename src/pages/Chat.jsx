@@ -16,6 +16,8 @@ export const Chat = () => {
   const { decodedToken } = useAuth();
   const [users, setUsers] = useState([]);
   const [connected, setConnected] = useState(false);
+  const [token, setToken] = useState(null);
+  const [message, setMessage] = useState();
 
   const decodeToken = async (token) => {
     const result = await decodedToken(token);
@@ -24,32 +26,32 @@ export const Chat = () => {
   const socket = io("http://localhost:3000");
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
-
+    const tokenStorage = localStorage.getItem("token");
+    if (!tokenStorage) {
+      console.log("Token is undefined");
+      return;
+    }
+    setToken(tokenStorage);
     socket.on("connect", () => {
       setConnected(true);
-      socket.emit("auth", token);
+      socket.emit("auth", tokenStorage);
       socket.on("on-clients-changed", (clients) => {
-        setUsers(clients);
-        console.log("socket users:", users);
+        setUsers((prevUsers) => [...prevUsers, ...clients]);
       });
       setStatus(true);
     });
-    
+
     socket.on("disconnect", () => {
       setConnected(false);
-      socket.emit('disconnect', () => {
-        console.log('funciona');
-      })
-    })
+      socket.emit("disconnect");
+    });
 
     if (token) {
       decodeToken(token)
         .then((decodedData) => {
           const { id, name } = decodedData;
           setUserName(name);
-          setUsers([...users, { id, name }]);
-          console.log("token users:", users);
+          setUsers((prevUsers) => [...prevUsers, { id, name }]);
         })
         .catch((error) => {
           console.error(error);
@@ -58,8 +60,14 @@ export const Chat = () => {
     }
   }, [navigate]);
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log(token);
+    socket.emit("send-message", message, token);
+  };
+
   const logout = () => {
-    socket.disconnect()
+    socket.disconnect();
     localStorage.removeItem("token");
     navigate("/register");
   };
@@ -120,15 +128,14 @@ export const Chat = () => {
           </div>
         </div>
 
-        <form className="input ">
+        <form className="input" onSubmit={handleSubmit}>
           <input
             className="border-none"
             placeholder="Escribe tu mensaje aquí"
             type="text"
+            onChange={(e) => setMessage(e.target.value)}
           />
-          <i>
-            <FaPaperPlane />
-          </i>
+          <button type="submit">button</button>
         </form>
       </div>
     </div>
