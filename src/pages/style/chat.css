@@ -41,6 +41,12 @@ html {
   justify-content: center;
 }
 
+.information-bubble .username {
+  color: #f5d0fe;
+  font-size: 20px;
+  font-weight: bold;
+}
+
 .status-info {
   display: flex;
   gap: 20px;
@@ -70,6 +76,7 @@ html {
   margin-bottom: 2rem;
   box-shadow: 0 0 8rem 0 rgba(0, 0, 0, 0.1),
     0rem 2rem 4rem -3rem rgba(0, 0, 0, 0.5);
+  overflow: hidden;
 }
 
 .contact {
@@ -182,14 +189,14 @@ html {
   align-items: center;
   padding: 0 0.5rem 0 1.5rem;
 }
-.chat .input i {
+.icon {
   font-size: 1.5rem;
   margin-right: 1rem;
   color: #c026d3;
   cursor: pointer;
   transition: color 200ms;
 }
-.chat .input i:hover {
+.icon:hover {
   color: #9333ea;
 }
 .chat .input input {
@@ -205,6 +212,7 @@ html {
   font-weight: 400;
   letter-spacing: 0.025em;
   transition: border-color 0.3s ease;
+  color: #f5d0fe;
 }
 .chat .input input:placeholder {
   color: #999;

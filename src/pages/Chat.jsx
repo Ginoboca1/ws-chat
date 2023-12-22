@@ -5,7 +5,7 @@ import { Button } from "../components/button";
 import "./style/chat.css";
 import { FaPaperPlane } from "react-icons/fa6";
 import { FaPhoneAlt } from "react-icons/fa";
-import { redirect, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import io from "socket.io-client";
 import { useAuth } from "../context/authContext";
 
@@ -15,11 +15,9 @@ export const Chat = () => {
   const [userName, setUserName] = useState();
   const { decodedToken } = useAuth();
   const [users, setUsers] = useState([]);
-  const [connected, setConnected] = useState(false);
   const [token, setToken] = useState(null);
   const [message, setMessage] = useState();
-  const [myDataMessage, setMyDataMessage] = useState("");
-  const [incomingDataMessage, setIncomingDataMessage] = useState("");
+  const [dataMessage, setDataMessage] = useState([]);
 
   const decodeToken = async (token) => {
     const result = await decodedToken(token);
@@ -35,7 +33,6 @@ export const Chat = () => {
     }
     setToken(tokenStorage);
     socket.on("connect", () => {
-      setConnected(true);
       socket.emit("auth", tokenStorage);
       socket.on("on-clients-changed", (clients) => {
         setUsers(clients);
@@ -44,7 +41,6 @@ export const Chat = () => {
     });
 
     socket.on("disconnect", () => {
-      setConnected(false);
       socket.emit("disconnect");
     });
 
@@ -67,10 +63,16 @@ export const Chat = () => {
         const { id } = decodedData;
 
         if (!(id === data.userId)) {
-          setIncomingDataMessage(data.message[0]);
+          setDataMessage((prevMessage) => [
+            ...prevMessage,
+            { content: data.message[0], you: false },
+          ]);
           return;
         }
-        setMyDataMessage(data.message[0]);
+        setDataMessage((prevMessage) => [
+          ...prevMessage,
+          { content: data.message[0], you: true },
+        ]);
         return;
       } catch (error) {
         console.error("Error decoding token in on-message:", error);
@@ -98,9 +100,9 @@ export const Chat = () => {
         clickAction={logout}
       />
       <div className="information-bubble">
-        <h3>Usuario: {userName || "Usuario Desconocido"}</h3>
+        <h3 className="username">{userName || "Usuario Desconocido"}</h3>
         <div className="status-info">
-          <h3>Estado del chat: </h3>
+          <h3>Status: </h3>
           {status ? (
             <p className="status-online">online</p>
           ) : (
@@ -108,11 +110,17 @@ export const Chat = () => {
           )}
         </div>
 
-        <h3>Personas conectadas</h3>
+        <h3 className="username">Connected Users</h3>
         <ul>
-          {users.map((user) => (
-            <li key={user.id}>{user.name}</li>
-          ))}
+          {/* Renderizar el usuario actual primero */}
+          {userName && <li>{userName} (You)</li>}
+
+          {/* Renderizar los demás usuarios */}
+          {users
+            .filter((user) => user.name !== userName) // Excluir al usuario actual
+            .map((user) => (
+              <li key={user.id}>{user.name}</li>
+            ))}
         </ul>
       </div>
 
@@ -121,7 +129,7 @@ export const Chat = () => {
           <div className="pic stark"></div>
           <div className="contact-info">
             <div className="name text-gray-900">Tony Stark</div>
-            <div className="seen">Hoy a las 12:56</div>
+            <div className="seen">Today at 12:56</div>
           </div>
           <i className="phone-icon">
             <FaPhoneAlt />
@@ -129,7 +137,7 @@ export const Chat = () => {
         </div>
 
         <div className="messages " id="chat">
-          <div className="time ">Hoy a las 11:41</div>
+          <div className="time ">Today at 11:41</div>
 
           <div className="message text-gray-900 ">
             Uh, what is this guy's problem, Mr. Stark? 🤔
@@ -139,17 +147,29 @@ export const Chat = () => {
             Uh, he's from space, he came here to steal a necklace from a wizard.
           </div>
 
-          {myDataMessage ? (
-            <div className="message ">{myDataMessage}</div>
-          ) : (
-            <div>{""}</div>
+          {dataMessage.map((message, index) =>
+            message.you ? (
+              <div className="message incoming" key={index}>
+                {message.content}
+              </div>
+            ) : (
+              <div className="message" key={index}>
+                {message.content}
+              </div>
+            )
           )}
 
-          {incomingDataMessage ? (
-            <div className="message incoming ">{incomingDataMessage}</div>
-          ) : (
-            <div>{""}</div>
-          )}
+          {/* {myDataMessage.map((message, index) => (
+            <div className="message incoming" key={index}>
+              {message}
+            </div>
+          ))}
+
+          {incomingDataMessage.map((message, index) => (
+            <div className="message" key={index}>
+              {message}
+            </div>
+          ))} */}
         </div>
 
         <form className="input" onSubmit={handleSubmit}>
@@ -160,7 +180,9 @@ export const Chat = () => {
             onChange={(e) => setMessage(e.target.value)}
             value={message ? message : ""}
           />
-          <button type="submit">button</button>
+          <button type="submit">
+            <FaPaperPlane className="icon" />
+          </button>
         </form>
       </div>
     </div>
