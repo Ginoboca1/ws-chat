@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import { AiFillExclamationCircle } from "react-icons/ai";
 
-const Input = ({
+export const Input = ({
   type,
   nameInput,
   nameTitle,
@@ -41,4 +41,3 @@ const Input = ({
     </div>
   );
 };
-export default Input;
