@@ -2,7 +2,7 @@ import { joiResolver } from "@hookform/resolvers/joi";
 import Joi from "joi";
 import { useForm } from "react-hook-form";
 import { NavLink, useNavigate } from "react-router-dom";
-import { Input } from "../components/Input.jsx";
+import { Input } from "../components/Input";
 import { Message } from "../components/Message.jsx";
 import { useAuth } from "../context/authContext.jsx";
 
