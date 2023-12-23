@@ -8,6 +8,7 @@ import { FaPhoneAlt } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import io from "socket.io-client";
 import { useAuth } from "../context/authContext";
+import { ModalConfirm } from "../components/modal/Modal";
 
 export const Chat = () => {
   const navigate = useNavigate();
@@ -18,6 +19,7 @@ export const Chat = () => {
   const [token, setToken] = useState(null);
   const [message, setMessage] = useState();
   const [dataMessage, setDataMessage] = useState([]);
+  const [callModal, setCall] = useState(false);
 
   const decodeToken = async (token) => {
     const result = await decodedToken(token);
@@ -82,6 +84,9 @@ export const Chat = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (!message) {
+      return false;
+    }
     socket.emit("send-message", message, token);
     setMessage("");
   };
@@ -94,15 +99,15 @@ export const Chat = () => {
 
   return (
     <div className="main-container">
+      {callModal && <ModalConfirm setCall={setCall} />}
       <Button
         className={"logout-button"}
         titleButton={"Logout"}
         clickAction={logout}
       />
       <div className="information-bubble">
-        <h3 className="username">{userName || "Usuario Desconocido"}</h3>
         <div className="status-info">
-          <h3>Status: </h3>
+          <h3 className="username">{userName || "Usuario Desconocido"}</h3>
           {status ? (
             <p className="status-online">online</p>
           ) : (
@@ -128,11 +133,11 @@ export const Chat = () => {
         <div className="contact">
           <div className="pic stark"></div>
           <div className="contact-info">
-            <div className="name text-gray-900">Tony Stark</div>
+            <div className="name text-gray-900">Darth Vader</div>
             <div className="seen">Today at 12:56</div>
           </div>
-          <i className="phone-icon">
-            <FaPhoneAlt />
+          <i className="phone-icon" onClick={() => setCall(true)}>
+            <FaPhoneAlt className="phone-icon" />
           </i>
         </div>
 
@@ -140,12 +145,10 @@ export const Chat = () => {
           <div className="time ">Today at 11:41</div>
 
           <div className="message text-gray-900 ">
-            Uh, what is this guy's problem, Mr. Stark? 🤔
+            {`${userName} ... I am your father`}
           </div>
 
-          <div className="message incoming">
-            Uh, he's from space, he came here to steal a necklace from a wizard.
-          </div>
+          <div className="message incoming">wait wut</div>
 
           {dataMessage.map((message, index) =>
             message.you ? (
@@ -158,24 +161,12 @@ export const Chat = () => {
               </div>
             )
           )}
-
-          {/* {myDataMessage.map((message, index) => (
-            <div className="message incoming" key={index}>
-              {message}
-            </div>
-          ))}
-
-          {incomingDataMessage.map((message, index) => (
-            <div className="message" key={index}>
-              {message}
-            </div>
-          ))} */}
         </div>
 
         <form className="input" onSubmit={handleSubmit}>
           <input
             className="border-none"
-            placeholder="Escribe tu mensaje aquí"
+            placeholder="Write your message here"
             type="text"
             onChange={(e) => setMessage(e.target.value)}
             value={message ? message : ""}
