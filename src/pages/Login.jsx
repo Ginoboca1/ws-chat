@@ -101,7 +101,7 @@ export const Login = () => {
         </div>
         <div className="flex items-center gap justify-center h-5">
           <p className="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">
-            Do you have an account?
+            Do you not have an account?
           </p>
           <div className="mx-1"></div>
           <NavLink

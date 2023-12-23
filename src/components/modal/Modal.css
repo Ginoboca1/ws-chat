@@ -1,0 +1,151 @@
+.modalContainer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9998; /* Asegúrate de que esté detrás del modal */
+}
+
+.modal {
+  background-color: rgba(0, 0, 0, 0.6);
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 9999;
+  padding: 20px;
+  border: #f5d0fe solid 1px;
+  border-radius: 5px;
+}
+
+.modalHeader {
+  background-color: var(--primary);
+  height: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+  border-radius: 5px;
+  gap: 20px;
+}
+
+.close_icon {
+  color: #f5d0fe;
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  margin-bottom: 20px;
+}
+
+.close_icon:hover {
+  color: red;
+}
+
+.titleModal {
+  font-style: normal;
+  font-weight: 700;
+  font-size: 1rem;
+  color: #f5d0fe;
+}
+
+.textModal {
+  margin-top: -12px;
+  margin-left: 37px;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 20px;
+  color: red;
+}
+.buttons {
+  display: flex;
+  justify-content: flex-end;
+  margin-right: 37px;
+  margin-top: 15px;
+  gap: 30px;
+}
+.buttons > * {
+  width: 110px;
+  height: 40px;
+  cursor: pointer;
+  font-size: 20px;
+  font-weight: 500;
+  padding: 5px;
+  border-radius: 5px;
+}
+
+.btnAccept {
+  background: linear-gradient(to right, #c026d3, #9333ea);
+  border: none;
+  transition: 0.2s ease;
+}
+
+.btnAccept:hover {
+  color: black;
+  font-size: 17px;
+}
+
+.btnCancel {
+  background: rgba(77, 74, 74, 0.7);
+  color: #f5d0fe;
+  transition: 0.2s ease;
+}
+
+.btnCancel:hover {
+  background-color: red;
+  color: #f5d0fe;
+  font-size: 17px;
+}
+
+/* .animation {
+  animation-name: scale-up-center;
+  animation-duration: 0.3s;
+  animation-timing-function: ease;
+  animation-delay: 0s;
+  animation-iteration-count: 1;
+  animation-direction: normal;
+  animation-fill-mode: none;
+}
+@keyframes scale-up-center {
+  0% {
+    transform: scale(0.2);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+.animationModalExit {
+  animation-name: scale-down-center;
+  animation-duration: 1.2s;
+  animation-timing-function: ease-out;
+  animation-delay: 0s;
+  animation-iteration-count: 1;
+  animation-direction: normal;
+  animation-fill-mode: none;
+}
+@keyframes scale-down-center {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(0);
+  }
+}
+.animationExit {
+  animation-name: fadeOut;
+  animation-duration: 0.3s;
+  animation-timing-function: ease-out;
+  animation-fill-mode: forwards;
+}
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+} */
