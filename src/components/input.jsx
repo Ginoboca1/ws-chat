@@ -32,7 +32,11 @@ export const Input = ({
         <i className={error ? "text-red-500" : "text-transparent"}>
           <AiFillExclamationCircle />
         </i>
-        <p className={error ? "text-red-500 text-sm " : "text-transparent text-sm"}>
+        <p
+          className={
+            error ? "text-red-500 text-sm " : "text-transparent text-sm"
+          }
+        >
           {error
             ? error
             : "The password must contain at special characters, numbers and mayus"}
