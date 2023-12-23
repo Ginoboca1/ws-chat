@@ -148,8 +148,6 @@ export const Chat = () => {
             {`${userName} ... I am your father`}
           </div>
 
-          <div className="message incoming">wait wut</div>
-
           {dataMessage.map((message, index) =>
             message.you ? (
               <div className="message incoming" key={index}>
