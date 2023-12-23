@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react/no-unescaped-entities */
 import { useEffect, useState } from "react";
-import { Button } from "../components/button";
+import { Button } from "../components/Button.jsx";
 import "./style/chat.css";
 import { FaPaperPlane } from "react-icons/fa6";
 import { FaPhoneAlt } from "react-icons/fa";
