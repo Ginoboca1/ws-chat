@@ -25,7 +25,7 @@ export const Chat = () => {
     const result = await decodedToken(token);
     return result;
   };
-  const socket = io("http://localhost:3000");
+  const socket = io("wss://ws-chat-server.vercel.app/ws");
 
   useEffect(() => {
     const tokenStorage = localStorage.getItem("token");
