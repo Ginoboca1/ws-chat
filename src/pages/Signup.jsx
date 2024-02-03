@@ -63,6 +63,7 @@ export const Signup = () => {
     if (!registerErrors) {
       navigate("/");
     }
+    navigate("/");
   };
 
   return (

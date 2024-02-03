@@ -1,8 +1,37 @@
-# React + Vite
+## Overall
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+If you wanna more info, please read the documentation here: https://fallacious-whitefish-1fb.notion.site/WS-Chat-1-c1205ecdb38c417fa5f5086f834d15a0?pvs=4
 
-Currently, two official plugins are available:
+## Requirements
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Node.js and npm are required to use the API. You can install Node and NPM in the links below:
+
+🔗 [Download | Node.js (nodejs.org)](https://nodejs.org/en/download)
+
+
+## Configuration
+
+### Backend
+
+This API was developed with a .env file, before run the application you will need create a .env file in the root of the project. Right there you will found a .env template called `.env.exampl`
+
+**1.** Create a `.env` file based on the `.env.example` template.
+
+**2.** Adjust environment variables as needed, including the database connection string.
+
+### Frontend
+
+The client side is easier, you dont need an .env file. Please follows the steps bellow in usage section
+
+## Usage
+
+### Frontend
+
+1. Start the project by running `npm start` in the CLI.
+
+### Backend
+
+1. Initially, create an `.env` file using the template provided in `.env.example`.
+2. After setting all the environment variables, start the project using `npm start`.
+3. The server is now running, and you can test the application!
+
