@@ -1,1 +1,1 @@
-export const API_URL = "https://ws-chat-server.vercel.app";
+export const API_URL = "https://ws-server-afmv.onrender.com/api";
