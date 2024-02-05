@@ -49,17 +49,12 @@ export const Login = () => {
 
   const onSubmit = async () => {
     const data = getValues();
+    console.log(data);
     await signin(data);
     if (isAuthenticated) {
       navigate("/chat");
     }
   };
-
-  // useEffect(() => {
-  //   if (isAuthenticated) {
-  //     navigate("/chat");
-  //   }
-  // }, [isAuthenticated, navigate]);
 
   return (
     <div className="flex flex-col items-center justify-center">
