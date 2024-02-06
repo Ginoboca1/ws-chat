@@ -1,6 +1,10 @@
 ## Overall
 
-If you wanna more info, please read the documentation here: https://fallacious-whitefish-1fb.notion.site/WS-Chat-1-c1205ecdb38c417fa5f5086f834d15a0?pvs=4
+If you want test the app or more info, please read the documentation here: https://fallacious-whitefish-1fb.notion.site/WS-Chat-1-c1205ecdb38c417fa5f5086f834d15a0?pvs=4
+
+
+## Usage
+For test the app locally follows the steps bellow or you can go to ws-client-6ox0.onrender.com
 
 ## Requirements
 
