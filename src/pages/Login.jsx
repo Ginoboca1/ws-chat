@@ -49,6 +49,7 @@ export const Login = () => {
 
   const onSubmit = async () => {
     const data = getValues();
+    console.log(data);
     await signin(data);
     if (isAuthenticated) {
       navigate("/chat");
@@ -60,6 +61,7 @@ export const Login = () => {
       {loginErrors.map((error, i) => (
         <Message message={error} key={i} />
       ))}
+
       <form
         className="text-white text-center bg-black/50 shadow rounded-lg sm:px-10 w-full max-w-md py-6 px-5 flex flex-col"
         onSubmit={handleSubmit(onSubmit)}
@@ -106,6 +108,12 @@ export const Login = () => {
           </NavLink>
         </div>
       </form>
+      <div className="text-white text-center bg-black/30 shadow rounded-lg sm:px-10 py-6 px-5 flex flex-col min-w-xs max-w-xs mt-2">
+        <p className="text-xs">
+          Due to the limitations of our free hosting plan, the first request
+          may experience a delay of up to 50 seconds.
+        </p>
+      </div>
     </div>
   );
 };
