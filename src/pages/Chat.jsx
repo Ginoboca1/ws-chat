@@ -25,8 +25,7 @@ export const Chat = () => {
     const result = await decodedToken(token);
     return result;
   };
-  
-  const socket = io("http://localhost:3000");
+  const socket = io("https://ws-server-afmv.onrender.com");
 
   useEffect(() => {
     const tokenStorage = localStorage.getItem("token");
