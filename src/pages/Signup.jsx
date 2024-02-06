@@ -67,7 +67,7 @@ export const Signup = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center">
+    <div className="flex flex-col items-center justify-center my-4">
       {registerErrors.map((error, i) => (
         <Message message={error} key={i} />
       ))}
@@ -124,6 +124,12 @@ export const Signup = () => {
           </NavLink>
         </div>
       </form>
+      <div className="text-white text-center bg-black/30 shadow rounded-lg sm:px-10 py-6 px-5 flex flex-col min-w-xs max-w-xs mt-2">
+        <p className="text-xs">
+          Due to the limitations of our free hosting plan, the first request may
+          experience a delay of up to 50 seconds.
+        </p>
+      </div>
     </div>
   );
 };
