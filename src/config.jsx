@@ -1,1 +1,1 @@
-export const API_URL = "https://ws-client-6ox0.onrender.com/api";
+export const API_URL = "https://ws-server-afmv.onrender.com/api";
