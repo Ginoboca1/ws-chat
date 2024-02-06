@@ -55,12 +55,6 @@ export const Login = () => {
     }
   };
 
-  // useEffect(() => {
-  //   if (isAuthenticated) {
-  //     navigate("/chat");
-  //   }
-  // }, [isAuthenticated, navigate]);
-
   return (
     <div className="flex flex-col items-center justify-center">
       {loginErrors.map((error, i) => (
